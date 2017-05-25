@@ -1,0 +1,56 @@
+From C# to Go
+Looking back on my journey to Go through a data science lens.
+1 Jun 2017
+Tags: c#, golang, data science
+
+Julian Bright
+Data Scientist, Engineer and Entrepreneur
+jbright@seek.com.au
+@brightsparc
+
+* Agenda
+
+List of topics to cover
+
+- why go (performance, good std lib, good community)
+- language overview some difference (structs, interface, switch)
+- patterns (concurrency, fan-in/out)
+- development environment & tooling (unit testing, benchmarks, atom ide)
+- build and deployment (single binary, docker, prometheus)
+- aws integration (apex, xray)
+- interesting libraries & projects (gob, grpc, dgraph, grumpy)
+- my use cases (batch processing, scoring & inference)
+- tips & tricks (data structures, slices and pointers, memory management)
+
+* Why Go
+
+* Language Overview
+
+* Patterns
+
+Golang has some really powerful
+
+.image concurrency.gif
+.caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
+
+* Development Environment & Tooling
+
+- Show unit testing code example
+- Show bench mark testing example
+- Talk about atom ide and golint
+
+I'm not going to touch on vendoring, suffice to say, there still isn't consensus on best approach.
+
+* Interesting libraries & projects
+
+Following is a short list of some interesting projects.
+
+- [[https://golang.org/pkg/encoding/gob/][gob]] - the standard library for efficient binary encoding.
+- [[https://github.com/grpc/grpc-go][grpc]] - the Go implementation of gRPC HTTP/2 based RPC.
+- [[https://github.com/simeji/jid][jid]] - drill down JSON interactively using filtering like jq.
+- [[https://github.com/apex/apex][apex]] - build deploy and manage AWS lambda functions with Go.
+- [[https://github.com/prometheus/prometheus][prometheus]] - the Prometheus monitoring system and time series database.
+- [[https://github.com/adrianco/spigo][spigo]] - simulate protocol interactions in Go by Adrian Cockcroft.
+- [[https://github.com/google/grumpy][grumpy]] - a Python to Go source code transcompiler.
+- [[https://github.com/boltdb/bolt][boltdb]] - an embedded key/value database for Go.
+- [[https://docs.dgraph.io/v0.7.7][dgraph]] - an open source distributed graph database.
