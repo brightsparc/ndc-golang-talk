@@ -42,7 +42,8 @@ class SpeakersSpider(scrapy.Spider):
             level = 'All levels'
         else:
             level = levels[0]
-        content = {
+        item["talk"] = {
+            "workshop": re.search("/workshop/", response.url) is not None,
             "url": response.url,
             "level": level,
             "title": self.strip_not_empty(response.css("section.masthead h1::text").extract_first()),
@@ -50,8 +51,4 @@ class SpeakersSpider(scrapy.Spider):
             "preamble": self.join_not_empty(response.css("section.preamble p::text").extract()),
             "body": self.join_not_empty(response.css("section.body p::text").extract()),
         }
-        if re.search("/workshop/", response.url):
-            item["workshop"] = content
-        else:
-            item["talk"] = content
         return item
