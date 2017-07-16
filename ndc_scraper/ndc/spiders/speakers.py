@@ -5,6 +5,7 @@ class SpeakersSpider(scrapy.Spider):
     name = "speakers"
     start_urls = [
         'http://ndcsydney.com/speakers/',
+        'http://ndcoslo.com/speakers/'
     ]
 
     def parse(self, response):
@@ -20,6 +21,7 @@ class SpeakersSpider(scrapy.Spider):
 
     def parse_speaker(self, response):
         item = {
+            "conference": response.css("div.logo p::text").re("\w+")[0],
             "name": self.strip_not_empty(response.css("section.masthead h1::text").extract_first()),
             "tagline": self.strip_not_empty(response.css("section.masthead h1 span::text").extract_first()),
             "image": response.urljoin(response.css("section.masthead img::attr(src)").extract_first()),
@@ -34,11 +36,22 @@ class SpeakersSpider(scrapy.Spider):
     def parse_talk(self, response):
         item = response.meta["item"]
         print(response.url)
-        item["talk"] = {
+        tags = response.css("section.masthead div.tags a::text").extract()
+        levels = [s[7:] for s in tags if s.startswith('Level: ')]
+        if not levels:
+            level = 'All levels'
+        else:
+            level = levels[0]
+        content = {
+            "url": response.url,
+            "level": level,
             "title": self.strip_not_empty(response.css("section.masthead h1::text").extract_first()),
-            "tags": [s for s in response.css("section.masthead div.tags a::text").extract()
-                        if not s.startswith('Level: ')], # don't include levels
+            "tags": [s for s in tags if not s.startswith('Level: ')], # don't include levels
             "preamble": self.join_not_empty(response.css("section.preamble p::text").extract()),
             "body": self.join_not_empty(response.css("section.body p::text").extract()),
         }
+        if re.search("/workshop/", response.url):
+            item["workshop"] = content
+        else:
+            item["talk"] = content
         return item
