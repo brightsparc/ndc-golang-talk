@@ -1,0 +1,10 @@
+{
+  "writeKey": "8GT90rhOugcEGAqdcBWP8muss7iSwwHy",
+  "projectId": "gBdc5RRdme",
+  "delivery": {
+    "streamEndpoint": "http://dockerhost:4573",
+    "streamRegion": "us-west-2",
+    "streamName": "test-stream"
+  },
+  "forwarderEndpoint": "https://requestb.in/1i3mjuy1"
+}
