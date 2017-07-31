@@ -1,9 +1,8 @@
 package main
 
 import (
-	"encoding/csv"
+	"bufio"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"time"
@@ -16,7 +15,7 @@ import (
 # Train model
 time ../../fasttextgo/fasttext supervised -input train.txt -output model -wordNgrams 2 -lr 0.1 -epoch 1000
 
-# Test model between c and go
+# Test models
 time ../../fasttextgo/fasttext predict-prob model.bin test.txt 1 | head -n 1
 time go run main.go predict-prob model.bin test.txt 1 | head -n 1
 */
@@ -33,7 +32,8 @@ func main() {
 	}{}
 
 	var parser = flags.NewParser(&opts, flags.IgnoreUnknown)
-	if _, err := parser.Parse(); err != nil {
+	_, err := parser.Parse()
+	if err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println("Args", opts)
@@ -46,20 +46,14 @@ func main() {
 
 	switch opts.Positional.Command {
 	case "predict", "predict-prob":
-		// Load test
 		f, err := os.Open(opts.Positional.TestFile)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer f.Close()
-		r := csv.NewReader(f)
-		r.Comma = '\t' // Split on any string?
-		for {
-			record, err := r.Read()
-			if err == io.EOF {
-				break
-			}
-			prob, label, err := fasttextgo.Predict(record[1])
+		scanner := bufio.NewScanner(f)
+		for scanner.Scan() {
+			prob, label, err := fasttextgo.Predict(scanner.Text())
 			if err != nil {
 				log.Fatal(err)
 			} else {
@@ -70,6 +64,9 @@ func main() {
 					fmt.Println()
 				}
 			}
+		}
+		if err := scanner.Err(); err != nil {
+			log.Printf("Error reading input: %s\n", err)
 		}
 	default:
 		log.Fatalf("Command %s not supported", opts.Positional.Command)
