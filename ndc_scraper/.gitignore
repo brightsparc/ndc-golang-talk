@@ -23,3 +23,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Executables
+ndc_scraper
+model.bin

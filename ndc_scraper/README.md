@@ -19,11 +19,11 @@ The machine learning model is built with `fastText`, and scrapy down the `Scrapy
 
 [fastText](https://github.com/facebookresearch/fastText) is a library for efficient learning of word representations and sentence classification.
 
-You can d
+My fork of this code has an updated makefile and fasttext wrapper for building go library.
 
 ```
-$ git clone https://github.com/facebookresearch/fastText.git
-$ cd fastText
+$ git clone https://github.com/brightsparc/fasttextgo
+$ cd fasttextgo
 $ make
 ```
 
