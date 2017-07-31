@@ -35,8 +35,6 @@ func main() {
 	_, err := parser.Parse()
 	if err != nil {
 		log.Fatal(err)
-	} else {
-		log.Println("Args", opts)
 	}
 
 	// Load model
