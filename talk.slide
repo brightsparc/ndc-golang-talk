@@ -1,12 +1,262 @@
-From C# to Go
-Looking back on my journey to Go through a data science lens.
-1 Jun 2017
+NDC Sydney: From C# to Go
+My data science journey
+14 Aug 2017
 Tags: c#, golang, data science
 
 Julian Bright
-Data Scientist, Engineer and Entrepreneur
-jbright@seek.com.au
+brightsparc@gmail.com
 @brightsparc
+
+* Welcome
+
+Welcome to From C# to Go 🎉
+
+.image give_feedback.png 400 400
+
+.caption [[https://m.me/givefeedback?ref=2tCf4aH][Scan me to ask questions of give feedback]]
+
+: Ask the question, scan
+
+* Agenda
+
+Talk about stuff
+
+- About me
+- How I got into go
+- Why Go, and some examples
+
+Share open source code
+
+- `Segment` Compatible Tracking API
+- `FastText` Go Prediction API
+
+* Bit about me
+
+I'm a Data Scientist, Engineer and Entrepreneur
+
+Worked with .NET since 2001
+
+- Avanade Canberra
+- Microsoft UK
+- BBC Worldwide UK
+- Fairfax Sydney
+- SEEK Melbourne
+
+Moved into Data Science in 2013, after joining seek 2011
+
+* SEEK July 2011
+
+Typical tech stack
+
+- .NET, C#, Javascript, MSSQL, MSMQ
+
+Infra:
+
+- Windows Servers (Hostworks Adelaide, and DR Equinox Sydney)
+
+* SEEK July 2017
+
+Polyglot tech stack
+
+.image language_census.png
+
+Infra:
+
+- 80+ AWS accounts across 20 teams.
+
+* SEEK May 2014
+
+Take opportunity at SEEK Hackathon #2 to give Go a test drive.
+
+.iframe http://youtu.be/3YUXXeHCzU4 400 600
+
+Won Ubergeek Award!
+- “Most bleeding edge, technologically advanced and buzzword compliant innovation”
+
+: Fix embed
+
+* SEEK Webstack shout
+
+Who was the competition
+
+- `Go`
+- `Node.js`
+- `Scala` (Akka/Spray)
+- `Dotnet`
+
+Who won? `Scala` by an inch
+
+What did I learn?
+
+- Working with go is a lot of fun
+- Learning curve is not steep
+- Standard http library is very performant
+
+* Brief history of go
+
+Created in 2007 by Google team including Rob Pike & Ken Thomspon.
+
+1. Memory safe, with c-like performance
+2. Developer productivity (really fast compilation, easy to grok)
+3. Native concurrency
+
+Release History:
+
+- Version 1.0 in 2012
+- Current [[https://blog.golang.org/go1.8][1.8]] in Feb 2017
+- Version [[https://dave.cheney.net/2016/10/25/introducing-go-2-0][2.0]] offers option for new breaking changes.
+
+: Check out https://medium.com/statuscode/the-9-most-popular-golang-links-from-2016-c49287d99448
+
+* C# vs Go
+
+Same:
+
+- Statically Typed
+- Managed runtime, Good standard library
+- Compiled binary
+- Supports Namespaces as packages
+
+Different “Less is more”:
+
+- Simple types limited to structs and interfaces (no generics)
+- Multiple return values, with explicit error handling
+- Native concurrency with goroutines
+- Testing over Debugging with first class benchmark & perf tools
+
+* Code Examples
+
+I will run through some example code
+
+- IO
+- JSON
+- HTTP Server
+- Concurrency
+- CGO
+- Testing
+- Profiling
+
+* Example Code: Hello World
+
+All go programs define package and main.
+
+.play ndc_examples/00_hello.go
+
+* Example Code: IO
+
+Simple file IO example.
+
+.code ndc_examples/01_file.go
+
+Multiple return values, explicit error handling, `defer` method.
+
+* Example Code: JSON
+
+Example file `Talk.json`
+
+    {
+      "name": "Julian Bright",
+      "tagline": "Senior Data Scientist @ Seek",
+      "image": "http://ndcsydney.com/images/speaker/Julian_Bright.png",
+      "preamble": "Julian is an entrepreneur in residence at SEEK with strong analytics skills and experience across a broad range of disciplines including software engineering & architecture, data science, statistics and applied machine learning. ",
+      "talk": {
+        "title": "Talk: From C# to Golang, My data science journey.",
+        "tags": [
+          "Machine Learning",
+          "Languages",
+          "Web",
+          "Cloud",
+          "Fun"
+        ],
+        "preamble": "So you have heard lots of people talking about Golang thinking that it's probably just one of these fads that will disappear, but it's community is still active and growing. So what is all the fuss about?",
+        "body": "In this talk, I will distill my experience from moving from C# to Golang, and talk to some specific use cases where Golang excels as well as demonstrate how SEEK is using Golang as key part of their infrastructure for deploying data science models."
+      }
+    }
+
+: Nested structure
+
+* Example Code: JSON
+
+Define a struct and json annotations.
+
+.code ndc_examples/02_json.go
+
+* Example Code: HTTP
+
+Simple http server.
+
+.code ndc_examples/03_http.go
+
+Using inline function definition for handler.
+
+* Example Code: Concurrency
+
+Create, send and read from channel.
+
+.code ndc_examples/04_channel.go
+
+Make is used to create channels with an optional size.
+
+* Example Code: Concurrency
+
+Wait groups can be used block until goroutines complete.
+
+.play ndc_examples/05_waitgroup.go
+
+* Example Code: Concurrency
+
+Sqaure function takes an input, channel, returns a new channel with results.
+
+.play ndc_examples/06_fanout.go
+
+: The close function ends the range loop
+
+* Example Code: CGO
+
+Go can interoperate with native C code.
+
+.play ndc_examples/07_cgo.go
+
+* Example Code: Testing
+
+Testing and benchmarking
+
+.code ndc_examples/08_test.go
+
+: Provide some clarity on number of times functions execute
+
+* Example Code: Testing results
+
+Benchmarking will happen in sequence after succesful tests.
+
+    go test -v -bench=. 06_test.go
+    === RUN   TestSucceed
+    --- PASS: TestSucceed (0.00s)
+    	06_test.go:6: Do something useful
+    BenchmarkFib10-2   	 1000000	      1306 ns/op
+    PASS
+    ok  	command-line-arguments	1.333s
+
+Output includes the number of # times method called, and timing per operation.
+
+* Performance Tuning
+
+- pprof
+
+* Development Environment & Tooling
+
+- Show unit testing code example
+- Show bench mark testing example
+- Talk about atom ide and golint
+
+I'm not going to touch on vendoring, suffice to say, there still isn't consensus on best approach.
+
+* Visualisation
+
+It's possible to create some really interesting patterns, and even visualise them.
+
+.image http://divan.github.io/demos/gifs/timers.gif
+.caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
 
 * Agenda
 
@@ -21,25 +271,6 @@ List of topics to cover
 - interesting libraries & projects (gob, grpc, dgraph, grumpy)
 - my use cases (batch processing, scoring & inference)
 - tips & tricks (data structures, slices and pointers, memory management)
-
-* Why Go
-
-* Language Overview
-
-* Patterns
-
-Golang has some really powerful
-
-.image concurrency.gif
-.caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
-
-* Development Environment & Tooling
-
-- Show unit testing code example
-- Show bench mark testing example
-- Talk about atom ide and golint
-
-I'm not going to touch on vendoring, suffice to say, there still isn't consensus on best approach.
 
 * Interesting libraries & projects
 
