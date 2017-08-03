@@ -19,13 +19,14 @@ Welcome to From C# to Go 🎉
 
 * Agenda
 
-Talk about stuff
+Slides
 
-- About me
-- How I got into go
-- Why Go, and some examples
+- A bit about me
+- My start in go at SEEK
+- Some code examples
+- Testing and Deployment
 
-Share open source code
+Demo
 
 - `Segment` Compatible Tracking API
 - `FastText` Go Prediction API
@@ -46,23 +47,23 @@ Moved into Data Science in 2013, after joining seek 2011
 
 * SEEK July 2011
 
+Infrastructure:
+
+- Windows Servers (Hostworks Adelaide, and DR Equinox Sydney)
+
 Typical tech stack
 
 - .NET, C#, Javascript, MSSQL, MSMQ
 
-Infra:
-
-- Windows Servers (Hostworks Adelaide, and DR Equinox Sydney)
-
 * SEEK July 2017
+
+Infrastructure:
+
+- 80+ AWS accounts across 20 teams.
 
 Polyglot tech stack
 
 .image language_census.png
-
-Infra:
-
-- 80+ AWS accounts across 20 teams.
 
 * SEEK May 2014
 
@@ -74,23 +75,6 @@ Take opportunity at SEEK Hackathon #2 to give Go a test drive.
 Won Ubergeek Award!
 - “Most bleeding edge, technologically advanced and buzzword compliant innovation”
 
-* SEEK Webstack shout
-
-Who was the competition
-
-- `Go`
-- `Node.js`
-- `Scala` (Akka/Spray)
-- `Dotnet`
-
-Who won? `Scala` by an inch
-
-What did I learn?
-
-- Working with go is a lot of fun
-- Learning curve is not steep
-- Standard http library is very performant
-
 * Brief history of go
 
 Created in 2007 by Google team including Rob Pike & Ken Thomspon.
@@ -99,11 +83,11 @@ Created in 2007 by Google team including Rob Pike & Ken Thomspon.
 2. Developer productivity (really fast compilation, easy to grok)
 3. Native concurrency
 
-Release History:
+.image gopher.png
 
-- Version 1.0 in 2012
-- Current [[https://blog.golang.org/go1.8][1.8]] in Feb 2017
-- Version [[https://dave.cheney.net/2016/10/25/introducing-go-2-0][2.0]] offers option for new breaking changes.
+Version 1.0 in 2012
+Current [[https://blog.golang.org/go1.8][1.8]] in Feb 2017
+Version [[https://dave.cheney.net/2016/10/25/introducing-go-2-0][2.0]] offers option for new breaking changes.
 
 : Check out https://medium.com/statuscode/the-9-most-popular-golang-links-from-2016-c49287d99448
 
@@ -111,17 +95,18 @@ Release History:
 
 Same:
 
-- Statically Typed
+- Statically Typed, Namespaces/packages
 - Managed runtime, Good standard library
-- Compiled binary
-- Supports Namespaces as packages
+- Small Compiled binary
 
-Different “Less is more”:
+Different:
 
 - Simple types limited to structs and interfaces (no generics)
 - Multiple return values, with explicit error handling
 - Native concurrency with goroutines
-- Testing over Debugging with first class benchmark & perf tools
+- Testing over Debugging with first class benchmarking & performance tools
+
+Go Mantra: “Less is more”
 
 * Code Examples
 
@@ -153,24 +138,7 @@ Multiple return values, explicit error handling, `defer` method.
 
 Example file `Talk.json`
 
-    {
-      "name": "Julian Bright",
-      "tagline": "Senior Data Scientist @ Seek",
-      "image": "http://ndcsydney.com/images/speaker/Julian_Bright.png",
-      "preamble": "Julian is an entrepreneur in residence at SEEK with strong analytics skills and experience across a broad range of disciplines including software engineering & architecture, data science, statistics and applied machine learning. ",
-      "talk": {
-        "title": "Talk: From C# to Golang, My data science journey.",
-        "tags": [
-          "Machine Learning",
-          "Languages",
-          "Web",
-          "Cloud",
-          "Fun"
-        ],
-        "preamble": "So you have heard lots of people talking about Golang thinking that it's probably just one of these fads that will disappear, but it's community is still active and growing. So what is all the fuss about?",
-        "body": "In this talk, I will distill my experience from moving from C# to Golang, and talk to some specific use cases where Golang excels as well as demonstrate how SEEK is using Golang as key part of their infrastructure for deploying data science models."
-      }
-    }
+.code ndc_examples/talk.json
 
 : Nested structure
 
@@ -228,27 +196,66 @@ Testing and benchmarking
 
 Benchmarking will happen in sequence after succesful tests.
 
-    go test -v -bench=. 06_test.go
+    go test -v -bench=. -cpuprofile cpu.out 08_test.go
     === RUN   TestSucceed
     --- PASS: TestSucceed (0.00s)
-    	06_test.go:6: Do something useful
-    BenchmarkFib10-2   	 1000000	      1306 ns/op
+    	08_test.go:6: Do something useful
+    BenchmarkFib10-4   	 3000000	       445 ns/op
     PASS
-    ok  	command-line-arguments	1.333s
+    ok  	command-line-arguments	2.955s
 
 Output includes the number of # times method called, and timing per operation.
 
-* Performance Tuning
+* Performance: Slowest calls
 
-- pprof
+Use the go tool [[https://blog.golang.org/profiling-go-programs][pprof]] to load profile for compiled code or test.
+
+    go tool pprof main.test cpu.out
+    Entering interactive mode (type "help" for commands)
+    (pprof) top5
+    2.60s of 2.61s total (99.62%)
+    Dropped 6 nodes (cum <= 0.01s)
+    Showing top 5 nodes out of 12 (cum >= 2.56s)
+          flat  flat%   sum%        cum   cum%
+         2.55s 97.70% 97.70%      2.55s 97.70%  command-line-arguments.Fib
+         0.03s  1.15% 98.85%      0.03s  1.15%  runtime.usleep
+         0.02s  0.77% 99.62%      0.02s  0.77%  runtime.duffcopy
+             0     0% 99.62%      2.55s 97.70%  command-line-arguments.BenchmarkFib10
+             0     0% 99.62%      2.56s 98.08%  runtime.goexit
+
+CPU profiling samples 100 times per second, also supports MEM profiling.
+
+* Performance: Lines of code
+
+You can also inspect the total time within methods
+
+    (pprof) list Fib
+    Total: 2.61s
+    ROUTINE ======================== command-line-arguments.Fib in 08_test.go
+         2.55s      3.75s (flat, cum)   100% of Total
+         640ms      640ms      9:func Fib(n int) int {
+         400ms      400ms     10:	if n < 2 {
+         160ms      160ms     11:		return n
+             .          .     12:	}
+         1.35s      2.55s     13:	return Fib(n-1) + Fib(n-2)
+             .          .     14:}
 
 * Development Environment & Tooling
 
-- Show unit testing code example
-- Show bench mark testing example
-- Talk about atom ide and golint
+No IDE; code with [[https://atom.io/][Atom]] and [[https://atom.io/packages/go-plus][go-plus]] which includes
 
-I'm not going to touch on vendoring, suffice to say, there still isn't consensus on best approach.
+- Autocomplete using `gocode`
+- Format your code with `gofmt`, `goimports`, or `goreturns`; optionally run one on save
+- Run a variety of linters (e.g. golint, vet, etc.) against your code using gometalinter
+- Go to definition using guru or godef
+
+Dependency management with [[https://github.com/kardianos/govendor][govendor]]
+
+If you really need it, debugger support with [[https://github.com/derekparker/delve][Delve]]
+
+* Deployment
+
+Easy with docker
 
 * Visualisation
 

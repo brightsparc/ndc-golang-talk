@@ -1,4 +1,4 @@
-package main // go test -v -bench=. 06_test.go
+package main // go test -v -bench=. -cpuprofile cpu.out 08_test.go
 
 import "testing"
 
