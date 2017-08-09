@@ -15,6 +15,6 @@ func main() {
 	go do(2)
 	go do(3)
 
-	fmt.Println("Wating...")
 	wg.Wait()
+	fmt.Println("Done")
 }

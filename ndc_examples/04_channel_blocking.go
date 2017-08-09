@@ -1,8 +1,10 @@
 package main
 
+import "fmt"
+
 func main() {
 	// create new channel of type int
-	ch := make(chan int, 1)
+	ch := make(chan int)
 
 	// start new anonymous goroutine
 	go func() {
@@ -11,5 +13,5 @@ func main() {
 	}()
 
 	// read from channel
-	<-ch
+	fmt.Println(<-ch)
 }

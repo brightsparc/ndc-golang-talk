@@ -14,7 +14,7 @@ df['talk_url'] = df.talk.apply(lambda talk: talk["url"])
 df['talk_level'] = df.talk.apply(lambda talk: talk["level"])
 
 # Load the lines and set label and contents
-df['talk_labels'] = df.talk.apply(lambda talk: ' '.join(["__label__%s" % clean(t, '') for t in talk["tags"]]))
+df['talk_labels'] = df.talk.apply(lambda talk: ' '.join(["__label__%s" % clean(t, '_') for t in talk["tags"]]))
 df['talk_contents'] = df.talk.apply(lambda talk: ' '.join([clean(talk["preamble"]), clean(talk["body"])]))
 
 # Make sure we have labels and some contents with some length

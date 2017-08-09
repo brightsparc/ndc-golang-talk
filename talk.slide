@@ -7,26 +7,18 @@ Julian Bright
 brightsparc@gmail.com
 @brightsparc
 
-* Welcome
-
-Welcome to From C# to Go 🎉
-
-.image give_feedback.png 400 400
-
-.caption [[https://m.me/givefeedback?ref=2tCf4aH][Scan me to ask questions of give feedback]]
-
-: Ask the question, scan
+* From C# to Go 🎉
 
 * Agenda
 
-Slides
+My journey
 
 - A bit about me
 - My start in go at SEEK
-- Some code examples
+- Code examples
 - Testing and Deployment
 
-Demo
+Use Cases
 
 - `Segment` Compatible Tracking API
 - `FastText` Go Prediction API
@@ -132,7 +124,7 @@ Simple file IO example.
 
 .code ndc_examples/01_file.go
 
-Multiple return values, explicit error handling, `defer` method.
+: Multiple return values, explicit error handling, `defer` method.
 
 * Example Code: JSON
 
@@ -144,7 +136,7 @@ Example file `Talk.json`
 
 * Example Code: JSON
 
-Define a struct and json annotations.
+Define a struct with json annotations.
 
 .code ndc_examples/02_json.go
 
@@ -154,41 +146,55 @@ Simple http server.
 
 .code ndc_examples/03_http.go
 
-Using inline function definition for handler.
+: Using inline function definition for handler.
 
-* Example Code: Concurrency
+* Example Code: Concurrency, blocking
 
 Create, send and read from channel.
 
-.code ndc_examples/04_channel.go
+.play ndc_examples/04_channel_blocking.go
 
-Make is used to create channels with an optional size.
+: Make is used to create channels with an optional size.
 
-* Example Code: Concurrency
+* Example Code: Concurrency, Non-blocking
 
-Wait groups can be used block until goroutines complete.
+We can use select with a default clause to implement non-blocking sends.
 
-.play ndc_examples/05_waitgroup.go
+.play ndc_examples/05_channel_nonblocking.go
 
-* Example Code: Concurrency
+* Example Code: Concurrency, Timeout
 
-Sqaure function takes an input, channel, returns a new channel with results.
+Timeouts are important for programs that connect to external resources or that otherwise need to bound execution time.
 
-.play ndc_examples/06_fanout.go
+.play ndc_examples/06_channel_timeout.go
+
+: The underscore is a blank indentifier, as complier requires you always use variables.
+
+* Example Code: Concurrency, Fan out/in
+
+Channels can operate as queues, collecting results back into an output channel.
+
+.play ndc_examples/07_channel_fanout.go
 
 : The close function ends the range loop
+
+* Example Code: Concurrency, Waitgroups
+
+Wait groups are often used in combination with channels to create specific # of threads.
+
+.play ndc_examples/08_waitgroup.go
 
 * Example Code: CGO
 
 Go can interoperate with native C code.
 
-.play ndc_examples/07_cgo.go
+.play ndc_examples/09_cgo.go
 
 * Example Code: Testing
 
 Testing and benchmarking
 
-.code ndc_examples/08_test.go
+.code ndc_examples/10_test.go
 
 : Provide some clarity on number of times functions execute
 
@@ -204,7 +210,7 @@ Benchmarking will happen in sequence after succesful tests.
     PASS
     ok  	command-line-arguments	2.955s
 
-Output includes the number of # times method called, and timing per operation.
+: Output includes the number of # times method called, and timing per operation.
 
 * Performance: Slowest calls
 
@@ -223,7 +229,8 @@ Use the go tool [[https://blog.golang.org/profiling-go-programs][pprof]] to load
              0     0% 99.62%      2.55s 97.70%  command-line-arguments.BenchmarkFib10
              0     0% 99.62%      2.56s 98.08%  runtime.goexit
 
-CPU profiling samples 100 times per second, also supports MEM profiling.
+: CPU profiling samples 100 times per second.
+: Memory profiling also supported
 
 * Performance: Lines of code
 
@@ -240,22 +247,27 @@ You can also inspect the total time within methods
          1.35s      2.55s     13:	return Fib(n-1) + Fib(n-2)
              .          .     14:}
 
-* Development Environment & Tooling
+* Deployment
 
-No IDE; code with [[https://atom.io/][Atom]] and [[https://atom.io/packages/go-plus][go-plus]] which includes
+Easy with docker
+
+.code ndc_segment/Dockerfile
+
+: New in Docker 17.05, supports multi stage builds
+: Ebay fabio is a good example that builds for multiple targets
+
+* Development Environment
+
+Code with [[https://atom.io/][Atom]] and [[https://atom.io/packages/go-plus][go-plus]] which includes
 
 - Autocomplete using `gocode`
 - Format your code with `gofmt`, `goimports`, or `goreturns`; optionally run one on save
 - Run a variety of linters (e.g. golint, vet, etc.) against your code using gometalinter
 - Go to definition using guru or godef
 
-Dependency management with [[https://github.com/kardianos/govendor][govendor]]
-
 If you really need it, debugger support with [[https://github.com/derekparker/delve][Delve]]
 
-* Deployment
-
-Easy with docker
+Dependency management with [[https://github.com/kardianos/govendor][govendor]]
 
 * Visualisation
 
@@ -263,6 +275,14 @@ It's possible to create some really interesting patterns, and even visualise the
 
 .image http://divan.github.io/demos/gifs/timers.gif
 .caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
+
+* Questions
+
+.image give_feedback.png 400 400
+
+.caption [[https://m.me/givefeedback?ref=2tCf4aH][Scan me to give feedback]]
+
+: Ask the question, scan
 
 * Agenda
 
