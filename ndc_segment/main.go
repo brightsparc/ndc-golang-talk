@@ -19,10 +19,10 @@ import (
 
 // ProjectConfig maps to json config file
 type ProjectConfig struct {
-	WriteKey          string                  `json:"writeKey"`
-	ProjectId         string                  `json:"projectId"`
-	Delivery          *segment.DeliveryConfig `json:"delivery"`
-	ForwarderEndpoint string                  `json:"forwarderEndpoint"`
+	WriteKey        string                  `json:"writeKey"`
+	ProjectId       string                  `json:"projectId"`
+	Delivery        *segment.DeliveryConfig `json:"delivery"`
+	ForwardEndpoint string                  `json:"forwardEndpoint"`
 }
 
 // GetProjectId returns the projectId from config file
@@ -83,7 +83,7 @@ func main() {
 	config := loadConfig(*configFilename)
 	destinations := []segment.Destination{
 		segment.NewDelivery(config.Delivery),
-		segment.NewForwarder(config.ForwarderEndpoint),
+		segment.NewForwarder(config.ForwardEndpoint),
 	}
 	seg := segment.NewSegment(config.GetProjectId, destinations, vr)
 

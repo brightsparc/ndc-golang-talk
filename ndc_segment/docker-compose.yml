@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  localstack:
+    image: atlassianlabs/localstack
+    ports:
+      - "4573:4573"
+    environment:
+      - SERVICES=firehose
+
+  ndc_segment:
+    image: brightsparc/ndc_segment
+    links:
+      - localstack
+    ports:
+      - "3001:3001"

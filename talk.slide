@@ -249,7 +249,7 @@ You can also inspect the total time within methods
 
 * Deployment
 
-Easy with docker
+User [[https://docs.docker.com/engine/userguide/eng-image/multistage-build/][Multi-stage]] docker build to target linux binary within alpine linux small distribution.
 
 .code ndc_segment/Dockerfile
 
