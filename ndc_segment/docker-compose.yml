@@ -5,6 +5,7 @@ services:
     image: atlassianlabs/localstack
     ports:
       - "4573:4573"
+      - "8080:8080"
     environment:
       - SERVICES=firehose
 
