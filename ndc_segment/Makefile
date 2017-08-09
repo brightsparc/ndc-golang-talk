@@ -8,7 +8,6 @@ all: build test
 help:
 	@echo $(TAG)
 	@echo "build     - go build"
-	@echo "install   - go install"
 	@echo "test      - go test"
 	@echo "docker    - docker build"
 	@echo "run       - docker-compose up"
@@ -35,10 +34,7 @@ run:
 publish: docker
 	docker push $(TAG):$(VERSION)
 
-install:
-	$(GO) install $(GOFLAGS)
-
 clean:
 	$(GO) clean
 
-.PHONY: build docker run publish install test clean
+.PHONY: build test docker run publish clean
