@@ -1,5 +1,8 @@
 version: "3"
 
+volumes:
+    prometheus_data: {}
+    
 services:
   localstack:
     image: atlassianlabs/localstack
@@ -18,3 +21,16 @@ services:
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '-config.file=/etc/prometheus/prometheus.yml'
+      - '-storage.local.path=/prometheus'
+    links:
+      - ndc_segment
+    ports:
+      - "9090:9090"
