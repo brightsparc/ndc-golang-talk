@@ -52,9 +52,6 @@ var (
 	shutdown       = 5 * time.Second // The timeout for shutdown triggering (this needs to be long enough for events/updates to finish)
 )
 
-// Use the following command to run local firehose in docker:
-// $ docker run -it -e SERVICES:firehose -p 4573:4573 -p 8080:8080 atlassianlabs/localstack
-
 func main() {
 	flag.Parse()
 
@@ -65,15 +62,15 @@ func main() {
 	// Create the root and version endpoint
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "NDC API %s", version) // Pull version from tag
+		fmt.Fprintf(w, "NDC Segment API %s", version)
 	})
-	router.Handle("/metrics", promhttp.Handler()) // prometheus metrics endpoint
-	vr := router.PathPrefix("/v1").Subrouter()    // Hard code version
+	router.Handle("/metrics", promhttp.Handler())
+	vr := router.PathPrefix("/v1").Subrouter()
 
 	// Run the server and wait for complete
 	h := &http.Server{Addr: *apiHost, Handler: router}
 	go func() {
-		log.Printf("NDC API %s listening on: %s\n", version, *apiHost)
+		log.Printf("NDC Segment API %s listening on: %s\n", version, *apiHost)
 		if err := h.ListenAndServe(); err != nil {
 			log.Fatal(err)
 		}

@@ -128,9 +128,9 @@ Simple file IO example.
 
 * Example Code: JSON
 
-Example file `Talk.json`
+Example file `talk.json`
 
-.code ndc_examples/talk.json
+.code ndc_predict/talk.json
 
 : Nested structure
 

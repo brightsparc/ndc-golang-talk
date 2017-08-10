@@ -88,12 +88,8 @@ __label__ux __label__architecture __label__cloud
 
 ## Authors
 
-* **Julian Bright**
+* Julian Bright - [brightsparc](https://github.com/brightsparc/)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Thanks for SEEKers who helped pull this together for NDC.
