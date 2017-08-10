@@ -8,10 +8,11 @@ all: build test
 help:
 	@echo $(TAG)
 	@echo "build     - go build"
-	@echo "test      - go test"
 	@echo "docker    - docker build"
 	@echo "run       - docker-compose up"
 	@echo "publish   - docker push"
+	@echo "test      - curl tack api"
+	@echo "loadtest  - load test track api"
 	@echo "clean     - remove temp files"
 
 build: checkdeps
@@ -19,7 +20,11 @@ build: checkdeps
 	$(GO) test -i ./...
 
 test: checkdeps
-	$(GO) test -v -test.timeout 15s `go list ./... | grep -v '/vendor/'`
+	curl -H "Content-Type: application/json" -d @track.json -X POST http://localhost:3001/v1/track
+
+loadtest: test
+	$(GO) get -u github.com/rakyll/hey
+	hey -n 100 -c 10 -H "Content-Type: application/json" -D ./track.json -m POST http://localhost:3001/v1/track
 
 checkdeps:
 	$(GO) get -d -v
