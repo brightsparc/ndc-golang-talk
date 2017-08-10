@@ -4,7 +4,8 @@ from sklearn.model_selection import train_test_split
 
 def clean(t, replace=' '):
     if t:
-        return re.sub('\s+', re.sub('\W+', ' ', t).lower(), ' ')
+        t = t.lower().replace('.net', 'dotnet').replace('c++', 'cpp') # special for nonword characters
+        return re.sub('\s+', re.sub('\W+', replace, t), ' ')
     return ''
 
 # Load data, and set talk properties
@@ -25,6 +26,6 @@ df = df[(df['talk_labels_len']>5)&(df['talk_contents_len']>20)]
 # Train test split
 train, test = train_test_split(df[['talk_labels', 'talk_contents']], stratify=df['conference'], test_size = 0.2, random_state=42)
 
-# Write back labels and conents
+# Write back labels and contents (use tab so text is not escaped)
 train.to_csv('train.txt', sep='\t', header=False, index=False)
 test.to_csv('test.txt', sep='\t', header=False, index=False)
