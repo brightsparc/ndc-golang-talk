@@ -6,5 +6,5 @@
     "streamRegion": "us-west-2",
     "streamName": "test-stream"
   },
-  "forwarderEndpoint": "https://api.segment.io/v1/batch"
+  "forwardEndpoint": "https://requestb.in/1anqiql1"
 }

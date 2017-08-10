@@ -89,16 +89,11 @@ func main() {
 
 	// Run waiting for cancel
 	ctx, cancel := context.WithCancel(context.Background())
-	quit := seg.Run(ctx)
+	seg.Run(ctx)
 
 	// On stop signal, wait for quit to return
 	<-stop
 	cancel()
-	for err := range quit {
-		if err != nil {
-			log.Println("Error quitting process", err)
-		}
-	}
 
 	log.Println("Shutting down web server...")
 	ctx, cancel = context.WithTimeout(context.Background(), shutdown)
