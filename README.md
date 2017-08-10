@@ -18,6 +18,6 @@ Optionally install [Syntax Highlighting](https://github.com/JosephBuchma/Go-Pres
 
 Source code for demonstrate is within this repository:
 
-1. [NDC Segment](tree/master/ndc_segment) Go API for event tracking.
-2. [NDC Segment](tree/master/ndc_scraper) Python scripts to scrape NDC speaker talks
-3. [NDC Predict](tree/master/ndc_predict) Go API predicting talk tags based on content.
+1. [NDC Segment](https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_segment) Go API for event tracking.
+2. [NDC Scraper](https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_scraper) Python scripts to scrape NDC speaker talks
+3. [NDC Predict](https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_predict) Go API predicting talk tags based on content.

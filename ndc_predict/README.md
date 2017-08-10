@@ -54,33 +54,6 @@ Summary:
   Total data:	490000 bytes
   Size/request:	49 bytes
 
-Detailed Report:
-
-	DNS+dialup:
-  		Average:	0.0002 secs
-  		Fastest:	0.0000 secs
-  		Slowest:	0.0394 secs
-
-	DNS-lookup:
-  		Average:	0.0001 secs
-  		Fastest:	0.0000 secs
-  		Slowest:	0.0118 secs
-
-	Request Write:
-  		Average:	0.0010 secs
-  		Fastest:	0.0000 secs
-  		Slowest:	0.0863 secs
-
-	Response Wait:
-  		Average:	0.0095 secs
-  		Fastest:	0.0001 secs
-  		Slowest:	0.0458 secs
-
-	Response Read:
-  		Average:	0.0056 secs
-  		Fastest:	0.0000 secs
-  		Slowest:	0.0890 secs
-
 Status code distribution:
   [200]	10000 responses
 
