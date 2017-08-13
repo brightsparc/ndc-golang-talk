@@ -9,6 +9,7 @@ func main() {
 	// Create a channel with empty struct
 	ch := make(chan struct{})
 
+	// Timeout
 	select {
 	case _ = <-ch:
 		fmt.Println("got result")

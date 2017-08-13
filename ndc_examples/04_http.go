@@ -6,8 +6,11 @@ import (
 )
 
 func main() {
+	// Inline func handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hi NDC %s!", r.URL.Path[1:])
 	})
+
+	// Serve the endpoint
 	http.ListenAndServe(":8080", nil)
 }
