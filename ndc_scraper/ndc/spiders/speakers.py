@@ -7,6 +7,7 @@ class SpeakersSpider(scrapy.Spider):
         'http://ndcsydney.com/speakers/',
         'http://ndcoslo.com/speakers/'
     ]
+    exclude_workshops = False
 
     def parse(self, response):
         for speaker in response.css("a.boxed-speaker::attr(href)").extract():
@@ -20,25 +21,29 @@ class SpeakersSpider(scrapy.Spider):
         if text: return re.sub('\s+', ' ', ' '.join(text))
 
     def parse_speaker(self, response):
-        item = {
-            "conference": response.css("div.logo p::text").re("\w+")[0],
-            "speaker": {
-                "url": response.url,
-                "name": self.strip_not_empty(response.css("section.masthead h1::text").extract_first()),
-                "tagline": self.strip_not_empty(response.css("section.masthead h1 span::text").extract_first()),
-                "imageUrl": response.urljoin(response.css("section.masthead img::attr(src)").extract_first()),
-                "handle": self.strip_not_empty(response.css("section.masthead a::text").extract_first()),
-                "preamble": self.join_not_empty(response.css("section.preamble p::text").extract()),
-            }
+        speaker = {
+            "url": response.url,
+            "name": self.strip_not_empty(response.css("section.masthead h1::text").extract_first()),
+            "tagline": self.strip_not_empty(response.css("section.masthead h1 span::text").extract_first()),
+            "imageUrl": response.urljoin(response.css("section.masthead img::attr(src)").extract_first()),
+            "handle": self.strip_not_empty(response.css("section.masthead a::text").extract_first()),
+            "preamble": self.join_not_empty(response.css("section.preamble p::text").extract()),
         }
 
         for talk in response.css("section.events li a"):
             link = response.urljoin(talk.css("::attr(href)").extract_first())
-            item["talk"] = {
-                "url": link,
-                "workshop": re.search("/workshop/", link) is not None,
-                "title": talk.css("h2::text").extract_first(),
+            item = {
+                "conference": response.css("div.logo p::text").re("\w+")[0],
+                "speaker": speaker,
+                "talk": { # TODO: Change this to session
+                    "workshop": re.search("/workshop/", link) is not None,
+                    "url": link,
+                    "title": talk.css("h2::text").extract_first(),
+                }
             }
+            # Optionally exclude workshops
+            if self.exclude_workshops and item["talk"]["workshop"]:
+                continue
             # Reqeust the talk, but don't filter as we want to get multiple talks from the different speakers
             yield scrapy.Request(link, callback=self.parse_talk, dont_filter=True, meta={"item": item})
 
