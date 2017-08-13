@@ -4,6 +4,7 @@ My data science journey
 Tags: c#, golang, data science
 
 Julian Bright
+Data Scientist, SEEK
 brightsparc@gmail.com
 @brightsparc
 
@@ -20,8 +21,8 @@ My journey
 
 Use Cases
 
-- `Segment` Compatible Tracking API
-- `FastText` Go Prediction API
+- Data capture API - `segment.io` compatible
+- Prediction API - `fasttext` model.
 
 * Bit about me
 
@@ -67,7 +68,7 @@ Take opportunity at SEEK Hackathon #2 to give Go a test drive.
 Won Ubergeek Award!
 - “Most bleeding edge, technologically advanced and buzzword compliant innovation”
 
-* Brief history of go
+* Go history
 
 Created in 2007 by Google team including Rob Pike & Ken Thomspon.
 
@@ -100,13 +101,17 @@ Different:
 
 Go Mantra: “Less is more”
 
+* Code Examples 🚸
+
 * Code Examples
 
-I will run through some example code
+I will run through some example code for:
 
 - IO
 - JSON
-- HTTP Server
+- Interfaces
+- Type assertion
+- HTTP server
 - Concurrency
 - CGO
 - Testing
@@ -140,33 +145,56 @@ Define a struct with json annotations.
 
 .code ndc_examples/02_json.go
 
+* Example Code: Implicit Interfaces
+
+A type implements an interface by implementing its methods.
+
+: There is no explicit declaration of intent
+
+.play ndc_examples/03a_interface.go
+
+* Example Code: Interface and Type assertion
+
+A type assertion provides access to an interface value's underlying concrete value.
+
+.play ndc_examples/03b_interface.go
+
 * Example Code: HTTP
 
 Simple http server.
 
-.code ndc_examples/03_http.go
+.code ndc_examples/04_http.go
 
 : Using inline function definition for handler.
+
+* Example Code: Concurrency
+
+Channels can be blocking or buffered
+
+.image channel.png
+
+.caption https://www.slideshare.net/ssuser9ebf46/golang-101
 
 * Example Code: Concurrency, blocking
 
 Create, send and read from channel.
 
-.play ndc_examples/04_channel_blocking.go
+.play ndc_examples/05a_channel_blocking.go /^func main/,/^}/
 
 : Make is used to create channels with an optional size.
+: https://github.com/gophercon/2017-talks/blob/master/KavyaJoshi-UnderstandingChannels/Kavya%20Joshi%20-%20Understanding%20Channels.pdf
 
-* Example Code: Concurrency, Non-blocking
+* Example Code: Concurrency, buffered
 
 We can use select with a default clause to implement non-blocking sends.
 
-.play ndc_examples/05_channel_nonblocking.go
+.play ndc_examples/05b_channel_nonblocking.go /^func main/,/^}/
 
 * Example Code: Concurrency, Timeout
 
 Timeouts are important for programs that connect to external resources or that otherwise need to bound execution time.
 
-.play ndc_examples/06_channel_timeout.go
+.play ndc_examples/05c_channel_timeout.go /^func main/,/^}/
 
 : The underscore is a blank indentifier, as complier requires you always use variables.
 
@@ -174,7 +202,7 @@ Timeouts are important for programs that connect to external resources or that o
 
 Channels can operate as queues, collecting results back into an output channel.
 
-.play ndc_examples/07_channel_fanout.go
+.play ndc_examples/05d_channel_fanout.go
 
 : The close function ends the range loop
 
@@ -183,6 +211,14 @@ Channels can operate as queues, collecting results back into an output channel.
 Wait groups are often used in combination with channels to create specific # of threads.
 
 .play ndc_examples/08_waitgroup.go
+
+* Example Code: CGO
+
+If you want to play outside of the nicely managed sandbox you can to.
+
+.image gophersengine.png
+
+.caption https://cgogen.com/
 
 * Example Code: CGO
 
@@ -267,7 +303,20 @@ Code with [[https://atom.io/][Atom]] and [[https://atom.io/packages/go-plus][go-
 
 If you really need it, debugger support with [[https://github.com/derekparker/delve][Delve]]
 
-Dependency management with [[https://github.com/kardianos/govendor][govendor]]
+Dependency management not standard, lots of [[https://github.com/Masterminds/glide/wiki/Go-Package-Manager-Comparison][options]]
+
+- [[https://github.com/kardianos/govendor][govendor]]
+- [[https://github.com/Masterminds/glide][glide]]
+- [[https://github.com/tools/godep][godep]]
+
+* Demonstration 💯
+
+* Demonstration
+
+I will run through some [[https://github.com/brightsparc/ndc-golang-talk/][example code]]
+
+- Data capture API - `segment.io` compatible
+- Prediction API - `fasttext` model.
 
 * Visualisation
 
