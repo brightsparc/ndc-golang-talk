@@ -17,12 +17,14 @@ My journey
 - A bit about me
 - My start in go at SEEK
 - Code examples
-- Testing and Deployment
+- Testing, Performance and Deployment
 
-Use Cases
+Demonstration
 
 - Data capture API - `segment.io` compatible
 - Prediction API - `fasttext` model.
+
+Questions
 
 * Bit about me
 
@@ -231,6 +233,13 @@ Wait groups are often used in combination with channels to create specific # of 
 
 .play ndc_examples/08_waitgroup.go
 
+* Example Code: Concurrency, Visualisation
+
+It's possible to create some really interesting patterns, and even visualise them.
+
+.image visualisation.gif
+.caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
+
 * Example Code: CGO
 
 If you want to play outside of the nicely managed sandbox you can to.
@@ -337,45 +346,29 @@ I will run through some [[https://github.com/brightsparc/ndc-golang-talk/][examp
 - Data capture API - `segment.io` compatible
 - Prediction API - `fasttext` model.
 
-* Visualisation
-
-It's possible to create some really interesting patterns, and even visualise them.
-
-.image http://divan.github.io/demos/gifs/timers.gif
-.caption [[http://divan.github.io/posts/go_concurrency_visualize][Visualizing Concurrency in Go]]
-
-* Questions
-
-.image give_feedback.png 400 400
-
-.caption [[https://m.me/givefeedback?ref=2tCf4aH][Scan me to give feedback]]
-
-: Ask the question, scan
-
-* Agenda
-
-List of topics to cover
-
-- why go (performance, good std lib, good community)
-- language overview some difference (structs, interface, switch)
-- patterns (concurrency, fan-in/out)
-- development environment & tooling (unit testing, benchmarks, atom ide)
-- build and deployment (single binary, docker, prometheus)
-- aws integration (apex, xray)
-- interesting libraries & projects (gob, grpc, dgraph, grumpy)
-- my use cases (batch processing, scoring & inference)
-- tips & tricks (data structures, slices and pointers, memory management)
-
 * Interesting libraries & projects
 
-Following is a short list of some interesting projects.
+Some of my favourites
 
 - [[https://golang.org/pkg/encoding/gob/][gob]] - the standard library for efficient binary encoding.
+- [[https://github.com/adrianco/spigo][spigo]] - simulate protocol interactions in Go by [[https://www.youtube.com/watch?v=smEuX-Hq6RI&feature=youtu.be&t=434][Adrian Cockcroft]].
+- [[https://github.com/boltdb/bolt][boltdb]] - an embedded key/value database for Go.
 - [[https://github.com/grpc/grpc-go][grpc]] - the Go implementation of gRPC HTTP/2 based RPC.
 - [[https://github.com/simeji/jid][jid]] - drill down JSON interactively using filtering like jq.
 - [[https://github.com/apex/apex][apex]] - build deploy and manage AWS lambda functions with Go.
 - [[https://github.com/prometheus/prometheus][prometheus]] - the Prometheus monitoring system and time series database.
-- [[https://github.com/adrianco/spigo][spigo]] - simulate protocol interactions in Go by Adrian Cockcroft.
 - [[https://github.com/google/grumpy][grumpy]] - a Python to Go source code transcompiler.
-- [[https://github.com/boltdb/bolt][boltdb]] - an embedded key/value database for Go.
 - [[https://docs.dgraph.io/v0.7.7][dgraph]] - an open source distributed graph database.
+
+See also: [[https://github.com/avelino/awesome-go][awesome-go]]
+
+: Adrian Cockcroft ex Battery, Netflix, now AWS Cloud.
+
+* Questions
+
+Powered by give feedback `givefeeback.io`
+
+.image give_feedback.png 450 450
+.caption [[https://m.me/givefeedback?ref=2urul2N][Scan me in Facebook Messenger to give feedback]]
+
+: Ask the question, scan
