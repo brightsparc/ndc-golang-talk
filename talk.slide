@@ -169,14 +169,6 @@ Simple http server.
 
 : Using inline function definition for handler.
 
-* Concurrency ≠ Parallelism
-
-No introduction to Go is complete demonstrating its goroutines and channels
-
-.image multi_threaded.jpg
-
-.caption [[https://blog.golang.org/concurrency-is-not-parallelism]["Do not communicate by sharing memory, share memory by communicating."]] - Rob Pike
-
 * Concurrency, goroutines
 
 Goroutine are independently executing functions, similar to a lightweight threads.
@@ -187,6 +179,7 @@ Goroutines talk via channels, which is like a file descriptor or unix pipe.
 
 : Similar but slightly different to Erlang which is closer to CSP
 : Programs composed with channels
+: 2kb of stack space to create a goroutine
 
 * Example Code: Concurrency
 
@@ -194,7 +187,7 @@ Channels can be blocking or buffered
 
 .image channel.png
 
-.caption https://www.slideshare.net/ssuser9ebf46/golang-101
+.caption [[https://blog.golang.org/concurrency-is-not-parallelism]["Do not communicate by sharing memory, share memory by communicating."]] - Rob Pike
 
 * Example Code: Concurrency, blocking
 
