@@ -35,9 +35,13 @@ type Prediction struct {
 	Label string  `json:"label"`
 }
 
+const prefix = "__label__"
+
 func predict(w http.ResponseWriter, r *http.Request) {
 	t0 := time.Now()
+	defer log.Printf("Predict in %s\n", time.Since(t0))
 
+	// Decode the session request
 	var session Session
 	err := json.NewDecoder(r.Body).Decode(&session)
 	if err != nil {
@@ -45,7 +49,7 @@ func predict(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get top K parameter
+	// Get top K parameter from query string
 	var k int
 	top := r.URL.Query().Get("top")
 	if k, err = strconv.Atoi(top); err != nil {
@@ -53,18 +57,21 @@ func predict(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get prob and label, return results
-	var preds []Prediction
 	probs, lables, err := fasttextgo.PredictK(session.Talk.Title+" "+session.Talk.Body, k)
 	if err != nil {
 		http.Error(w, "Predict error", http.StatusInternalServerError)
-	} else {
-		prefix := "__label__"
-		for i := range probs {
-			preds = append(preds, Prediction{Prob: probs[i], Label: strings.TrimPrefix(lables[i], prefix)})
-		}
-		log.Printf("Predict in %s\n", time.Since(t0))
-		json.NewEncoder(w).Encode(preds)
+		return
 	}
+
+	// Return a list of predictions
+	var preds []Prediction
+	for i := range probs {
+		preds = append(preds, Prediction{
+			Prob:  probs[i],
+			Label: strings.TrimPrefix(lables[i], prefix),
+		})
+	}
+	json.NewEncoder(w).Encode(preds)
 }
 
 var (
