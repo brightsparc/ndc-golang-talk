@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/brightsparc/fasttextgo"
@@ -57,10 +58,11 @@ func predict(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Predict error", http.StatusInternalServerError)
 	} else {
-		log.Printf("Predict in %s\n", time.Since(t0))
+		prefix := "__label__"
 		for i := range probs {
-			preds = append(preds, Prediction{Prob: probs[i], Label: lables[i]})
+			preds = append(preds, Prediction{Prob: probs[i], Label: strings.TrimPrefix(lables[i], prefix)})
 		}
+		log.Printf("Predict in %s\n", time.Since(t0))
 		json.NewEncoder(w).Encode(preds)
 	}
 }

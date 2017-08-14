@@ -39,16 +39,16 @@ Test the API with curl.
 $ curl -s -H "Content-Type: application/json" -d @talk.json -X POST http://localhost:3002/predict?top=3 | jq
 [
   {
-    "prob": 0.43750003,
-    "label": "__label__cloud"
+    "prob": 0.4511719,
+    "label": "cloud"
   },
   {
-    "prob": 0.18554689,
-    "label": "__label__microsoft"
+    "prob": 0.17773439,
+    "label": "microsoft"
   },
   {
-    "prob": 0.091796905,
-    "label": "__label__web"
+    "prob": 0.08789065,
+    "label": "web"
   }
 ]
 ```
