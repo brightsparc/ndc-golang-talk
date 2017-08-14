@@ -26,4 +26,4 @@ predict:
 	@echo
 	tail -3 predict.txt
 	@echo
-	tail -3 test.txt | cut -b 1-150
+	tail -3 test.txt | cut -b 1-100
