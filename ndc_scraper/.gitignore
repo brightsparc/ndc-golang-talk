@@ -26,4 +26,7 @@ wheels/
 
 # Executables
 ndc_scraper
+
+# Model artifacts
 model.bin
+predict.txt

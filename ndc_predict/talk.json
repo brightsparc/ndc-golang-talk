@@ -1,12 +1,18 @@
 {
-  "name": "Julian Bright",
-  "tagline": "Senior Data Scientist @ Seek",
-  "image": "http://ndcsydney.com/images/speaker/Julian_Bright.png",
-  "preamble": "Julian is an entrepreneur in residence at SEEK with strong analytics skills and experience across a broad range of disciplines including software engineering & architecture, data science, statistics and applied machine learning. ",
+  "speaker": {
+    "name": "Julian Bright",
+    "tagline": "Senior Data Scientist @ Seek",
+    "preamble": "Julian is an entrepreneur in residence at SEEK with strong analytics skills and experience across a broad range of disciplines including software engineering & architecture, data science, statistics and applied machine learning. "
+  },
   "talk": {
-    "title": "Talk: From C# to Golang, My data science journey.",
+    "url": "http://ndcsydney.com/talk/from-c-to-golang-my-data-science-journey./",
+    "title": "From C# to Golang, My data science journey.",
     "tags": [
-      "Machine Learning", "Languages", "Web", "Cloud", "Fun"
+      "Machine Learning",
+      "Languages",
+      "Web",
+      "Cloud",
+      "Fun"
     ],
     "preamble": "So you have heard lots of people talking about Golang thinking that it's probably just one of these fads that will disappear, but it's community is still active and growing. So what is all the fuss about?",
     "body": "In this talk, I will distill my experience from moving from C# to Golang, and talk to some specific use cases where Golang excels as well as demonstrate how SEEK is using Golang as key part of their infrastructure for deploying data science models."

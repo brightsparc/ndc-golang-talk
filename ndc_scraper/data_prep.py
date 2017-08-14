@@ -10,10 +10,6 @@ def clean(t, replace=' '):
 
 # Load data, and set talk properties
 df = pd.read_json('speakers.jl', lines=True)
-df['talk_title'] = df.talk.apply(lambda talk: talk["title"])
-df['talk_url'] = df.talk.apply(lambda talk: talk["url"])
-df['talk_level'] = df.talk.apply(lambda talk: talk["level"])
-
 # Load the lines and set label and contents
 df['talk_labels'] = df.talk.apply(lambda talk: ' '.join(["__label__%s" % clean(t, '_') for t in talk["tags"]]))
 df['talk_contents'] = df.talk.apply(lambda talk: ' '.join([clean(talk["preamble"]), clean(talk["body"])]))

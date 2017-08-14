@@ -20,10 +20,10 @@ build: checkdeps
 	$(GO) test -i ./...
 
 test: checkdeps
-	curl -H "Content-Type: application/json" -d @track.json -X POST http://localhost:3001/v1/track
+	curl -s -H "Content-Type: application/json" -d @track.json -X POST http://localhost:3001/v1/track | jq
 
-loadtest: test
-	$(GO) get -u github.com/rakyll/hey
+loadtest:
+	$(GO) get github.com/rakyll/hey
 	hey -n 100 -c 10 -H "Content-Type: application/json" -D ./track.json -m POST http://localhost:3001/v1/track
 
 checkdeps:

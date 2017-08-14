@@ -1,6 +1,6 @@
-# NDC Segment
+# NDC Predict
 
-Go API for event tracking.
+Go API for predicting tags against conference talk content.
 
 ## Prerequisites
 
@@ -36,14 +36,27 @@ $ go run main.go
 Test the API with curl.
 
 ```
-$ curl -H "Content-Type: application/json" -d @talk.json -X POST http://localhost:3002/predict
-{"prob":0.42578128,"label":"__label__microsoft"}
+$ curl -s -H "Content-Type: application/json" -d @talk.json -X POST http://localhost:3002/predict?top=3 | jq
+[
+  {
+    "prob": 0.43750003,
+    "label": "__label__cloud"
+  },
+  {
+    "prob": 0.18554689,
+    "label": "__label__microsoft"
+  },
+  {
+    "prob": 0.091796905,
+    "label": "__label__web"
+  }
+]
 ```
 
 Load test with [hey](https://github.com/rakyll/hey) for 100 concurrent users with ~10ms latency.
 
 ```
-$ hey -n 10000 -c 100 -H "Content-Type: application/json" -D ./talk.json -m POST http://localhost:3002/predict
+$ hey -n 10000 -c 10 -H "Content-Type: application/json" -D ./talk.json -m POST http://localhost:3002/predict
 
 Summary:
   Total:	1.7166 secs
@@ -59,25 +72,26 @@ Status code distribution:
 
 Response time histogram:
   0.000 [1]	|
-  0.012 [4137]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.025 [4156]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.037 [1065]	|∎∎∎∎∎∎∎∎∎∎
-  0.049 [394]	|∎∎∎∎
-  0.061 [158]	|∎∎
-  0.073 [40]	|
-  0.085 [28]	|
-  0.097 [13]	|
-  0.110 [2]	|
-  0.122 [6]	|
+  0.001 [7801]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  0.003 [1705]	|∎∎∎∎∎∎∎∎∎
+  0.004 [317]	|∎∎
+  0.005 [84]	|
+  0.006 [30]	|
+  0.007 [21]	|
+  0.008 [24]	|
+  0.010 [6]	|
+  0.011 [10]	|
+  0.012 [1]	|
 
 Latency distribution:
-  10% in 0.0048 secs
-  25% in 0.0097 secs
-  50% in 0.0139 secs
-  75% in 0.0201 secs
-  90% in 0.0310 secs
-  95% in 0.0396 secs
-  99% in 0.0599 secs
+  10% in 0.0004 secs
+  25% in 0.0006 secs
+  50% in 0.0009 secs
+  75% in 0.0013 secs
+  90% in 0.0020 secs
+  95% in 0.0026 secs
+  99% in 0.0048 secs
+
 ```
 
 ## Authors

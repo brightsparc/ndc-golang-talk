@@ -6,18 +6,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/brightsparc/fasttextgo"
 )
 
-// Speaker request
-type Speaker struct {
-	Name     string `json:"name"`
-	Tagline  string `json:"tagline"`
-	Image    string `json:"image"`
-	Preamble string `json:"preamble"`
-	Talk     struct {
+// Session request
+type Session struct {
+	Speaker struct {
+		Name     string `json:"name"`
+		Tagline  string `json:"tagline"`
+		Image    string `json:"image"`
+		Preamble string `json:"preamble"`
+	} `json:"speaker"`
+	Talk struct {
 		Title    string   `json:"title"`
 		Tags     []string `json:"tags"`
 		Preamble string   `json:"preamble"`
@@ -34,21 +37,31 @@ type Prediction struct {
 func predict(w http.ResponseWriter, r *http.Request) {
 	t0 := time.Now()
 
-	var speaker Speaker
-	err := json.NewDecoder(r.Body).Decode(&speaker)
+	var session Session
+	err := json.NewDecoder(r.Body).Decode(&session)
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
 
+	// Get top K parameter
+	var k int
+	top := r.URL.Query().Get("top")
+	if k, err = strconv.Atoi(top); err != nil {
+		k = 3
+	}
+
 	// Get prob and label, return results
-	var pred Prediction
-	pred.Prob, pred.Label, err = fasttextgo.Predict(speaker.Talk.Title + " " + speaker.Talk.Body)
+	var preds []Prediction
+	probs, lables, err := fasttextgo.PredictK(session.Talk.Title+" "+session.Talk.Body, k)
 	if err != nil {
 		http.Error(w, "Predict error", http.StatusInternalServerError)
 	} else {
 		log.Printf("Predict in %s\n", time.Since(t0))
-		json.NewEncoder(w).Encode(pred)
+		for i := range probs {
+			preds = append(preds, Prediction{Prob: probs[i], Label: lables[i]})
+		}
+		json.NewEncoder(w).Encode(preds)
 	}
 }
 
