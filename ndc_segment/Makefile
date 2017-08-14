@@ -3,7 +3,7 @@ GOFLAGS = -ldflags "-X main.version=$(VERSION)"
 TAG = brightsparc/ndc_segment
 VERSION = v1.0.1
 
-all: build test
+all: build
 
 help:
 	@echo $(TAG)

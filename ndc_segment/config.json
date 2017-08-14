@@ -4,7 +4,7 @@
   "delivery": {
     "streamEndpoint": "http://localstack:4573",
     "streamRegion": "us-west-2",
-    "streamName": "test-stream"
+    "streamName": "ndc_sydney"
   },
-  "forwardEndpoint": "https://requestb.in/1anqiql1"
+  "forwardEndpoint": "https://api.segment.io/v1/batch"
 }

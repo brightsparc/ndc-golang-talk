@@ -2,7 +2,7 @@ version: "3"
 
 volumes:
     prometheus_data: {}
-    
+
 services:
   localstack:
     image: atlassianlabs/localstack
