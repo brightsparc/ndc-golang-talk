@@ -1,6 +1,6 @@
 NDC Sydney: From C# to Go
 My data science journey
-14 Aug 2017
+17 Aug 2017
 Tags: c#, golang, data science
 
 Julian Bright
@@ -38,7 +38,7 @@ Worked with .NET since 2001
 - Fairfax Sydney
 - SEEK Melbourne
 
-Moved into Data Science in 2013, after joining seek 2011
+Moved into Data Science in 2013, after joining SEEK 2011
 
 * SEEK July 2011
 
@@ -72,7 +72,7 @@ Won Ubergeek Award!
 
 * Go history
 
-Created in 2007 by Google team including Rob Pike & Ken Thomspon.
+Created in 2007 by Google team including Rob Pike & Ken Thompson.
 
 1. Memory safe, with c-like performance
 2. Developer productivity (really fast compilation, easy to grok)
@@ -143,7 +143,7 @@ Example file `talk.json`
 
 * Example Code: JSON
 
-Define a struct with json annotations.
+Define a struct with JSON annotations.
 
 .code ndc_examples/02_json.go
 
@@ -179,7 +179,7 @@ No introduction to Go is complete demonstrating its goroutines and channels
 
 * Concurrency, goroutines
 
-Goroutine are independantly executing functions, similar to a lightweight threads.
+Goroutine are independently executing functions, similar to a lightweight threads.
 
 .image goroutine.png
 
@@ -217,7 +217,7 @@ Timeouts are important for programs that connect to external resources or that o
 
 .play ndc_examples/05c_channel_timeout.go /^func main/,/^}/
 
-: The underscore is a blank indentifier, as complier requires you always use variables.
+: The underscore is a blank identifier, as complier requires you always use variables.
 
 * Example Code: Concurrency, Fan out/in
 
@@ -264,7 +264,7 @@ Testing and benchmarking
 
 * Example Code: Testing results
 
-Benchmarking will happen in sequence after succesful tests.
+Benchmarking will happen in sequence after successful tests.
 
     go test -v -bench=. -cpuprofile cpu.out 08_test.go
     === RUN   TestSucceed
@@ -348,20 +348,20 @@ I will run through some [[https://github.com/brightsparc/ndc-golang-talk/][examp
 
 * Interesting libraries & projects
 
-Some of my favourites
+Some highlights.  See also: [[https://github.com/avelino/awesome-go][awesome-go]]
 
-- [[https://golang.org/pkg/encoding/gob/][gob]] - the standard library for efficient binary encoding.
-- [[https://github.com/adrianco/spigo][spigo]] - simulate protocol interactions in Go by [[https://www.youtube.com/watch?v=smEuX-Hq6RI&feature=youtu.be&t=434][Adrian Cockcroft]].
-- [[https://github.com/boltdb/bolt][boltdb]] - an embedded key/value database for Go.
-- [[https://github.com/grpc/grpc-go][grpc]] - the Go implementation of gRPC HTTP/2 based RPC.
-- [[https://github.com/simeji/jid][jid]] - drill down JSON interactively using filtering like jq.
 - [[https://github.com/apex/apex][apex]] - build deploy and manage AWS lambda functions with Go.
-- [[https://github.com/prometheus/prometheus][prometheus]] - the Prometheus monitoring system and time series database.
-- [[https://github.com/google/grumpy][grumpy]] - a Python to Go source code transcompiler.
+- [[https://github.com/blevesearch/bleve][bleve]] - A modern text indexing library for go.
+- [[https://github.com/boltdb/bolt][boltdb]] - an embedded key/value database for Go.
 - [[https://docs.dgraph.io/v0.7.7][dgraph]] - an open source distributed graph database.
+- [[https://github.com/grpc/grpc-go][grpc]] - the Go implementation of gRPC HTTP/2 based RPC.
+- [[https://github.com/google/grumpy][grumpy]] - a Python to Go source code transcompiler.
+- [[https://github.com/simeji/jid][jid]] - drill down JSON interactively using filtering like jq.
+- [[https://github.com/adrianco/spigo][spigo]] - simulate protocol interactions in Go by [[https://www.youtube.com/watch?v=smEuX-Hq6RI&feature=youtu.be&t=434][Adrian Cockcroft]].
+- [[https://github.com/prometheus/prometheus][prometheus]] - the Prometheus monitoring system and time series database.
+- [[https://github.com/ynqa/word-embedding][word-embedding]] - word2vec from scratch in go
 
-See also: [[https://github.com/avelino/awesome-go][awesome-go]]
-
+: Boltdb
 : Adrian Cockcroft ex Battery, Netflix, now AWS Cloud.
 
 * Questions
