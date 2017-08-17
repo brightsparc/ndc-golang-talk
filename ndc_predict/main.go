@@ -60,7 +60,8 @@ func predict(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Tokeniser the talk title and body
-	content := strings.ToLower(session.Talk.Title + " " + session.Talk.Body)
+	content := strings.ToLower(session.Talk.Title + " " +
+		session.Talk.Preamble + " " + session.Talk.Body)
 	tokens := tokeniser.FindAllString(content, -1)
 	content = strings.Join(tokens, " ")
 
