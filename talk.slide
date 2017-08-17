@@ -5,8 +5,10 @@ Tags: c#, golang, data science
 
 Julian Bright
 Data Scientist, SEEK
-brightsparc@gmail.com
-@brightsparc
+jbright@seek.com.au
+
+Github:
+https://github.com/brightsparc/ndc-golang-talk
 
 * From C# to Go 🎉
 
@@ -336,7 +338,7 @@ Dependency management not standard, lots of [[https://github.com/Masterminds/gli
 
 I will run through some [[https://github.com/brightsparc/ndc-golang-talk/][example code]]
 
-- Data capture API - `segment.io` compatible
+- Data capture API - [[https://segment.com/][segment.io]] compatible
 - Prediction API - `fasttext` model.
 
 * Interesting libraries & projects

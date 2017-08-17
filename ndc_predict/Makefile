@@ -18,7 +18,7 @@ test: checkdeps
 
 loadtest:
 	$(GO) get github.com/rakyll/hey
-	hey -n 1000 -c 10 -H "Content-Type: application/json" -D ./talk.json -m POST http://localhost:3002/predict
+	hey -n 5000 -c 10 -H "Content-Type: application/json" -D ./talk.json -m POST http://localhost:3002/predict
 
 checkdeps:
 	$(GO) get -d -v

@@ -1,6 +1,6 @@
 {
-  "writeKey": "8GT90rhOugcEGAqdcBWP8muss7iSwwHy",
-  "projectId": "gBdc5RRdme",
+  "writeKey": "kSg2rS7Fd2yz6vXOIHJXISqmPfKJD3g5",
+  "projectId": "SHnjgBsaYo",
   "delivery": {
     "streamEndpoint": "http://localstack:4573",
     "streamRegion": "us-west-2",

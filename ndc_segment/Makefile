@@ -24,7 +24,7 @@ test: checkdeps
 
 loadtest:
 	$(GO) get github.com/rakyll/hey
-	hey -n 100 -c 10 -H "Content-Type: application/json" -D ./track.json -m POST http://localhost:3001/v1/track
+	hey -n 5000 -c 10 -H "Content-Type: application/json" -D ./track.json -m POST http://localhost:3001/v1/track
 
 checkdeps:
 	$(GO) get -d -v
