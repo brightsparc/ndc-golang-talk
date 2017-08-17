@@ -1,4 +1,4 @@
-NDC Sydney: From C# to Go
+NDC Sydney: From C# to Go 🎉
 My data science journey
 17 Aug 2017
 Tags: c#, golang, data science
@@ -7,40 +7,35 @@ Julian Bright
 Data Scientist, SEEK
 jbright@seek.com.au
 
-Github:
-https://github.com/brightsparc/ndc-golang-talk
+Github: https://github.com/brightsparc/ndc-golang-talk
 
-* From C# to Go 🎉
+* Who am I
+
+I'm a Data Scientist, Engineer and Entrepreneur.
+
+.image give_feedback.png 450 450
+.caption [[https://m.me/givefeedback?ref=2urul2N][Scan me in Facebook Messenger to give feedback]]
+
+: .NET Since 2001
+: Avanade Canberra, Microsoft UK, BBC Worldwide UK, Fairfax Sydney, SEEK Melbourne
+: Moved into Data Science in 2013, after joining SEEK 2011
 
 * Agenda
 
-My journey
+My Story
 
-- A bit about me
-- My start in go at SEEK
-- Code examples
-- Testing, Performance and Deployment
+- Joining SEEK
+- My start in Go
+- Go Code examples
+- Testing & Performance
+- Deployment
 
 Demonstration
 
-- Data capture API - `segment.io` compatible
-- Prediction API - `fasttext` model.
+- Data capture API - `segment.io` compatible.
+- Model Training and Prediction API - powered by `fasttext`.
 
 Questions
-
-* Bit about me
-
-I'm a Data Scientist, Engineer and Entrepreneur
-
-Worked with .NET since 2001
-
-- Avanade Canberra
-- Microsoft UK
-- BBC Worldwide UK
-- Fairfax Sydney
-- SEEK Melbourne
-
-Moved into Data Science in 2013, after joining SEEK 2011
 
 * SEEK July 2011
 
@@ -60,7 +55,7 @@ Infrastructure:
 
 Polyglot tech stack
 
-.image language_census.png
+.image language_census.png 162 738
 
 * SEEK May 2014
 
@@ -72,7 +67,7 @@ Take opportunity at SEEK Hackathon #2 to give Go a test drive.
 Won Ubergeek Award!
 - “Most bleeding edge, technologically advanced and buzzword compliant innovation”
 
-* Go history
+* History of Go
 
 Created in 2007 by Google team including Rob Pike & Ken Thompson.
 
@@ -338,8 +333,24 @@ Dependency management not standard, lots of [[https://github.com/Masterminds/gli
 
 I will run through some [[https://github.com/brightsparc/ndc-golang-talk/][example code]]
 
-- Data capture API - [[https://segment.com/][segment.io]] compatible
-- Prediction API - `fasttext` model.
+- Data capture API - `segment.io` compatible.
+- Model Training and Prediction API - powered by `fasttext`.
+
+* Data capture API
+
+[[https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_segment][Data Capture]] API is compatible with [[https://segment.com/ndcsydney][segment.io]] spec, supports pluggable destinations.
+
+.image segment.png 450 630
+.caption [[https://segment.com/blog/the-totally-managed-analytics-pipeline/]]
+
+* Model Training and Prediction API
+
+[[https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_scraper][Train]] fasttext model to classify Talk `title` and `body` against labeled `tags`.
+
+.image fasttext.png
+.caption [[https://arxiv.org/pdf/1607.01759.pdf]]
+
+[[https://github.com/brightsparc/ndc-golang-talk/tree/master/ndc_predict][Predict]] API returns top N most probably tags for Talk `title` and `body`
 
 * Interesting libraries & projects
 
@@ -358,6 +369,18 @@ Some highlights.  See also: [[https://github.com/avelino/awesome-go][awesome-go]
 
 : Boltdb
 : Adrian Cockcroft ex Battery, Netflix, now AWS Cloud.
+
+* In Summary
+
+I've really enjoyed my experience of moving to Go.
+
+- Go is fast 🚅
+- Go is fun 👯
+- Go is productive 📈
+
+Allows you to think differently about concurrency.
+
+Let's you do away your IDE 🚫
 
 * Questions
 

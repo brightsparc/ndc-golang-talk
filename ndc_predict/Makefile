@@ -1,6 +1,6 @@
 GO = go
 
-all: build test
+all: build
 
 help:
 	@echo $(TAG)

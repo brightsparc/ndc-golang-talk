@@ -19,7 +19,7 @@ train:
 	time $(FASTTEXT) supervised -input train.txt -output $(MODEL) -wordNgrams 2 -dim 20 -epoch 1000 -lr 0.1
 
 test:
-	time $(FASTTEXT) test $(MODEL).bin test.txt $(PROBS)
+	time $(FASTTEXT) test $(MODEL).bin test.txt 1
 
 predict:
 	time $(FASTTEXT) predict-prob $(MODEL).bin test.txt $(PROBS) > predict.txt

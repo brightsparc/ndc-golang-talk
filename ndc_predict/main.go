@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -37,6 +38,8 @@ type Prediction struct {
 
 const prefix = "__label__"
 
+var tokeniser = regexp.MustCompile(`\.net|[cfj]#|c\+\+|[\p{L}\d_]+`)
+
 func predict(w http.ResponseWriter, r *http.Request) {
 	t0 := time.Now()
 	defer log.Printf("Predict in %s\n", time.Since(t0))
@@ -56,8 +59,13 @@ func predict(w http.ResponseWriter, r *http.Request) {
 		k = 3
 	}
 
+	// Tokeniser the talk title and body
+	content := strings.ToLower(session.Talk.Title + " " + session.Talk.Body)
+	tokens := tokeniser.FindAllString(content, -1)
+	content = strings.Join(tokens, " ")
+
 	// Get prob and label, return results
-	probs, lables, err := fasttextgo.PredictK(session.Talk.Title+" "+session.Talk.Body, k)
+	probs, lables, err := fasttextgo.PredictK(content, k)
 	if err != nil {
 		http.Error(w, "Predict error", http.StatusInternalServerError)
 		return
